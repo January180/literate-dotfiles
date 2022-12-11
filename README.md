@@ -1,3 +1,5 @@
-# literate-dotfiles
-Dotfiles for my most recent GNU/LINUX/ARCH configs.
-This repo is closed for commits and pullreqs from outside sources that aren't irl friends or close friends.
+public dotfiles namean
+
+like most of this is stolen or edited but i forgot sources so sorry 
+
+all of these are scuffed and broken i wouldnt recommend using them without going over them severely (i am insane)
