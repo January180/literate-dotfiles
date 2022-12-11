@@ -1,7 +1,3 @@
-public dotfiles namean
+these dotfiles SUCK!!!!!
 
-like most of this is stolen or edited but i forgot sources so sorry 
-
-all of these are scuffed and broken i wouldnt recommend using them without going over them severely (i am insane)
-
-this is a test
+i advise use only if you are an albanian prince x3 :3 >_<
