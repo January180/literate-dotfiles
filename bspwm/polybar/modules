@@ -1,0 +1,203 @@
+
+[module/date]
+type = internal/date
+
+interval = 1.0
+
+time = %I:%M %p
+time-alt = %A, %d %B %Y
+
+format = <label>
+format-prefix = " "
+format-prefix-font = 3
+format-prefix-foreground = ${color.RED}
+
+label = %time%
+label-font = 4
+
+;
+
+[module/sep]
+type = custom/text
+content = ◆
+
+content-background = ${color.BACKGROUND}
+content-foreground = ${color.BLACK}
+content-padding = 0.8
+
+;
+
+[module/memory]
+type = internal/memory
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 3
+
+; Default: 90
+; New in version 3.6.0
+warn-percentage = 95
+
+;
+
+[module/spotify]
+type = custom/script
+tail = true
+interval = 1
+; prefix symbol is shown before the text
+format-prefix = " "
+format = <label>
+exec = ~/.config/polybar/scripts/scroll_spotify_status.sh
+
+[module/spotify-prev]
+type = custom/script
+exec = echo ""
+format = <label>
+click-left = playerctl previous -p spotify
+
+[module/spotify-play-pause]
+type = custom/ipc
+hook-0 = echo ""
+hook-1 = echo ""
+initial = 1
+click-left = playerctl play-pause -p spotify
+
+[module/spotify-next]
+type = custom/script
+exec = echo ""
+format = <label>
+click-left = playerctl next -p spotify
+
+;
+
+
+[module/info-cava]
+type = custom/script
+exec = ~/polybar-scripts/info-cava.py -f 24 -b 12 -e fffdfc,fffafe,ffeafa,ffc3d2 -c average
+tail = true
+
+;
+[module/berrywm]
+type = internal/xworkspaces
+
+; Only show workspaces defined on the same output as the bar
+;
+; Useful if you want to show monitor specific workspaces
+; on different bars
+;
+; Default: false
+pin-workspaces = true
+
+; Create click handler used to focus desktop
+; Default: true
+enable-click = true
+
+; Create scroll handlers used to cycle desktops
+; Default: true
+enable-scroll = true
+
+; icon-[0-9]+ = <desktop-name>;<icon>
+; NOTE: The desktop name needs to match the name configured by the WM
+; You can get a list of the defined desktops using:
+; $ xprop -root _NET_DESKTOP_NAMES
+icon-0 = 1;
+icon-1 = 2;
+icon-2 = 3;
+icon-3 = 4;
+icon-4 = 5;漣
+icon-default = 
+
+; Available tags:
+;   <label-monitor>
+;   <label-state> - gets replaced with <label-(active|urgent|occupied|empty)>
+; Default: <label-state>
+format = <label-state>
+format-background = ${color.BG}
+format-font = 2
+
+; Available tokens:
+;   %name%
+; Default: %name%
+label-monitor = %name%
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-active = 
+label-active-foreground = ${color.pink}
+;;label-active-underline = ${color.BGA}
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-occupied = 
+label-occupied-foreground = ${color.magenta}
+;;label-occupied-underline = ${color.BGA}
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-urgent = 
+label-urgent-foreground = ${color.purple}
+;;label-urgent-underline = ${color.BGA}
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-empty = 
+label-empty-foreground = ${color.blue}
+
+label-active-padding = 1
+label-urgent-padding = 1
+label-occupied-padding = 1
+label-empty-padding = 1
+
+;
+
+[module/menu]
+type = custom/text
+
+content = 
+content-font = 24
+content-background = ${color.BG}
+content-foreground = ${color.pink}
+content-padding = 0
+
+click-left = ~/.config/bspwm/rofi/bin/launcher
+;;click-middle = path_to_script
+;;click-right = path_to_script
+
+;;scroll-up = path_to_script
+;;scroll-down = path_to_script
+
+;;
+[module/powermenu]
+type = custom/text
+content = ⭘
+content-font = 24
+content-background = ${color.BG}
+content-foreground = {color.pink}
+content-padding = 0
+
+click-left = ~/.config/bspwm/rofi/bin/powermenu
+
+;
+; ██▓    ▄▄▄       ██▀███   ██▀███ ▓██   ██▓▓█████  ██▓  ▄████  ██░ ██ ▄▄▄█████▓▓██   ██▓
+;▓██▒   ▒████▄    ▓██ ▒ ██▒▓██ ▒ ██▒▒██  ██▒▓█   ▀ ▓██▒ ██▒ ▀█▒▓██░ ██▒▓  ██▒ ▓▒ ▒██  ██▒
+;▒██░   ▒██  ▀█▄  ▓██ ░▄█ ▒▓██ ░▄█ ▒ ▒██ ██░▒███   ▒██▒▒██░▄▄▄░▒██▀▀██░▒ ▓██░ ▒░  ▒██ ██░
+;▒██░   ░██▄▄▄▄██ ▒██▀▀█▄  ▒██▀▀█▄   ░ ▐██▓░▒▓█  ▄ ░██░░▓█  ██▓░▓█ ░██ ░ ▓██▓ ░   ░ ▐██▓░
+;░██████▒▓█   ▓██▒░██▓ ▒██▒░██▓ ▒██▒ ░ ██▒▓░░▒████▒░██░░▒▓███▀▒░▓█▒░██▓  ▒██▒ ░   ░ ██▒▓░
+;░ ▒░▓  ░▒▒   ▓▒█░░ ▒▓ ░▒▓░░ ▒▓ ░▒▓░  ██▒▒▒ ░░ ▒░ ░░▓   ░▒   ▒  ▒ ░░▒░▒  ▒ ░░      ██▒▒▒ 
+;░ ░ ▒  ░ ▒   ▒▒ ░  ░▒ ░ ▒░  ░▒ ░ ▒░▓██ ░▒░  ░ ░  ░ ▒ ░  ░   ░  ▒ ░▒░ ░    ░     ▓██ ░▒░ 
+;  ░ ░    ░   ▒     ░░   ░   ░░   ░ ▒ ▒ ░░     ░    ▒ ░░ ░   ░  ░  ░░ ░  ░       ▒ ▒ ░░  
+;    ░  ░     ░  ░   ░        ░     ░ ░        ░  ░ ░        ░  ░  ░  ░          ░ ░     
+;                                   ░ ░                                          ░ ░     
+;

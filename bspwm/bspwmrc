@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+
+# bspwm config dir
+BSPDIR="$HOME/.config/bspwm"
+
+# forgot what this does
+export PATH="${PATH}:$HOME/.config/bspwm/bin"
+
+# fixes java based software
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# below is for pywal set to xresources colors, if you dont have pywal or a xresources file it wont work
+
+# Set the border colors.
+bspc config normal_border_color "$color1"
+bspc config active_border_color "$color2"
+bspc config focused_border_color "$color15"
+# Use the line below if you are on bspwm >= 0.9.4
+bspc config presel_feedback_color "$color1"
+# Use the line below if you are on bspwm < 0.9.4
+#bspc config presel_border_color "$color1"
+
+CURRENT_BORDER='4'
+CURRENT_GAP='35'
+CURRENT_SRATIO='1.4'
+
+xrandr --output HDMI-0 --mode 2560x1440
+
+bspc monitor HDMI-0 -d '1' '2' '3' '4' '5' '6' '7' '8'
+ 
+
+bspc config border_width "$CURRENT_BORDER"
+bspc config window_gap "$CURRENT_GAP"
+bspc config split_ratio "$CURRENT_SRATIO"
+bspc config focused_border_color "$BLUE" 
+bspc config normal_border_color "$BACKGROUND"
+bspc config active_border_color "$MAGENTA"
+bspc config presel_feedback_color "$GREEN"
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+bspc config paddingless_monocle true
+bspc config single_monocle false
+bspc config focus_follows_pointer true
+
+bspc wm --adopt-orphans
+
+# remove all rules first
+bspc rule -r *:*
+
+# kills shume shit
+killall -9 xsettingsd sxhkd dunst ksuperkey xfce4-power-manager
+
+# launches x settings config
+xsettingsd --config="$BSPDIR"/xsettingsd &
+
+
+
+  polkit agent
+if [[ ! `pidof xfce-polkit` ]]; then
+	/usr/lib/xfce-polkit/xfce-polkit &
+fi
+
+# Lauch keybindings daemon
+sxhkd -c .config/sxhkd/sxhkdrc &
+
+# fixes rofi so super is launcher
+ksuperkey -e 'Super_L=Alt_L|F1' &
+ksuperkey -e 'Super_R=alt|F1' &
+
+
+# fixez cursor
+xsetroot -cursor_name left_ptr
+
+# restore feh wallpaper
+./.fehbg
+
+
+# start picom
+picom --config .config/bspwm/picom.conf
+
+# start scripts
+bspcolors
+bspcomp
+bspbar &
+bspdunst
+bspfloat &
+
+# restore pywal
+wal -r
+
+;
+; ██▓    ▄▄▄       ██▀███   ██▀███ ▓██   ██▓▓█████  ██▓  ▄████  ██░ ██ ▄▄▄█████▓▓██   ██▓
+;▓██▒   ▒████▄    ▓██ ▒ ██▒▓██ ▒ ██▒▒██  ██▒▓█   ▀ ▓██▒ ██▒ ▀█▒▓██░ ██▒▓  ██▒ ▓▒ ▒██  ██▒
+;▒██░   ▒██  ▀█▄  ▓██ ░▄█ ▒▓██ ░▄█ ▒ ▒██ ██░▒███   ▒██▒▒██░▄▄▄░▒██▀▀██░▒ ▓██░ ▒░  ▒██ ██░
+;▒██░   ░██▄▄▄▄██ ▒██▀▀█▄  ▒██▀▀█▄   ░ ▐██▓░▒▓█  ▄ ░██░░▓█  ██▓░▓█ ░██ ░ ▓██▓ ░   ░ ▐██▓░
+;░██████▒▓█   ▓██▒░██▓ ▒██▒░██▓ ▒██▒ ░ ██▒▓░░▒████▒░██░░▒▓███▀▒░▓█▒░██▓  ▒██▒ ░   ░ ██▒▓░
+;░ ▒░▓  ░▒▒   ▓▒█░░ ▒▓ ░▒▓░░ ▒▓ ░▒▓░  ██▒▒▒ ░░ ▒░ ░░▓   ░▒   ▒  ▒ ░░▒░▒  ▒ ░░      ██▒▒▒ 
+;░ ░ ▒  ░ ▒   ▒▒ ░  ░▒ ░ ▒░  ░▒ ░ ▒░▓██ ░▒░  ░ ░  ░ ▒ ░  ░   ░  ▒ ░▒░ ░    ░     ▓██ ░▒░ 
+;  ░ ░    ░   ▒     ░░   ░   ░░   ░ ▒ ▒ ░░     ░    ▒ ░░ ░   ░  ░  ░░ ░  ░       ▒ ▒ ░░  
+;    ░  ░     ░  ░   ░        ░     ░ ░        ░  ░ ░        ░  ░  ░  ░          ░ ░     
+;                                   ░ ░                                          ░ ░     
+;

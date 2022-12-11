@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+DIR="$HOME/.config/bspwm"
+export SUDO_ASKPASS="$DIR"/bin/bspaskpass
+sudo -A $1
