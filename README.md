@@ -18,4 +18,3 @@ rofi
 maim
 sxhkd
 
-this be the wallpaper https://imgur.com/a/YSPFgOt
